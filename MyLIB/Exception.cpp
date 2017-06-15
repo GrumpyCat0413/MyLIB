@@ -14,10 +14,22 @@ namespace MyLib
         {
             char sl[16] = {0};
             itoa(line,sl,10);
+
             m_location = static_cast<char*>(malloc(strlen(file)+strlen(sl)+2));
-            m_location = strcpy(m_location,file);
-            m_location = strcat(m_location,":");
-            m_location = strcat(m_location,sl);
+
+            if(m_location != NULL)
+            {
+                m_location = strcpy(m_location,file);
+                m_location = strcat(m_location,":");
+                m_location = strcat(m_location,sl);
+            }
+            //else
+            //{
+                //THROW_EXCEPTION(NoEnoughMemoryException,"Exception::init");
+                //抛出异常，此时有问题，会造成死循环
+                //抛出异常时候会调用构造函数，构造函数会调用init函数，如此循环
+                //在父类的init函数中抛出子类异常，不符合逻辑，所以不需要else，
+            //}
         }
         else
         {

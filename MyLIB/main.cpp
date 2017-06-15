@@ -110,8 +110,11 @@ int main()
     delete obj1;
     delete obj2;
 
-
-
+    //测试：在创建智能指针的时候使用的是 自己的 new和delete版本
+    SmartPointer<int>* sp1 = new SmartPointer<int>();   //4+4（父类的虚函数） = 8个字节
+    delete sp1;
+    InvalidOperationException* e = new InvalidOperationException(); //8+4（父类的虚函数）12字节
+    delete e;
 
     return 0;
 }

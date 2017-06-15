@@ -2,13 +2,14 @@
 #define EXCEPTION_H
 #include <cstdlib>
 
+#include "Object.h"
 namespace MyLib {
 
 #define THROW_EXCEPTION(e, m) (throw e(m, __FILE__, __LINE__))
 
 
     //为顶层 抽象父类
-    class Exception
+    class Exception : public Object    //继承顶层父类Object
     {
     protected:
         char* m_message;        // 异常信息
@@ -114,6 +115,24 @@ namespace MyLib {
 
         InvalidParameterException(const InvalidParameterException& e):Exception(e){}
         InvalidParameterException& operator= (const InvalidParameterException& e)
+        {
+            Exception::operator =(e);
+
+            return *this;
+        }
+    };
+
+    //参数错误异常
+    class InvalidOperationException:public Exception
+    {
+    public:
+        InvalidOperationException():Exception(NULL){}
+        InvalidOperationException(const char* message):Exception(message){}
+        InvalidOperationException(const char* file,int line):Exception(file,line){}
+        InvalidOperationException(const char* message,const char* file, int line):Exception(message,file,line){}
+
+        InvalidOperationException(const InvalidOperationException& e):Exception(e){}
+        InvalidOperationException& operator= (const InvalidOperationException& e)
         {
             Exception::operator =(e);
 

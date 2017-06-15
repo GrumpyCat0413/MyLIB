@@ -1,10 +1,12 @@
 #ifndef SMARTPOINTER_H
 #define SMARTPOINTER_H
 
+#include "Object.h"
+
 namespace MyLib{
 
     template <typename T>
-    class SmartPointer
+    class SmartPointer : public Object    //ºÃ≥–∂•≤„∏∏¿‡Object
     {
     protected:
         T* m_pointer;
