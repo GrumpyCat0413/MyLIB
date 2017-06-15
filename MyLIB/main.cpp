@@ -1,10 +1,23 @@
 #include <iostream>
 #include "Exception.h"
 #include "Object.h"
-
+#include "SmartPointer.h"
 
 using namespace std;
 using namespace MyLib;
+
+class TestSP//测试智能指针
+{
+public:
+    TestSP()
+    {
+        cout << "TestSP" << endl;
+    }
+    ~TestSP()
+    {
+        cout << "~TestSP" << endl;
+    }
+};
 
 
 class Test : public Object  //内存大小：12字节,4+4+4（虚函数）
@@ -25,6 +38,14 @@ public:
 int main()
 {
     cout << "Hello World!" << endl;
+
+    SmartPointer<TestSP> sp = new TestSP();//TestSP
+    SmartPointer<TestSP> nsp;
+
+    nsp = sp;
+    //nsp++; //不能够做指针++的运算
+    cout << sp.isNull() << endl;//1
+    cout << nsp.isNull()<<endl;//0
 
     try
     {
